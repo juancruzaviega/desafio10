@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { usuarioLogueado, usuarioSinLoguear } from '../extras/user.js';
 import session from "express-session";
+import userDAO from "../models/userSchema.js";
+import passport from 'passport';
 
 const router = Router();
 
@@ -11,6 +13,14 @@ router.get('/', usuarioSinLoguear, (req, res) => {
 router.get('/sign-up', (req, res) => {
     res.render('sign-up', { layout: false });
 });
+
+router.post('/sign-up', (req, res) => {
+    passport.authenticate('sign-up', { failureRedirect: '/error-to-sign-up' })
+})
+
+router.post('/login', (req, res) => {
+    passport.authenticate('login', { failureRedirect: '/error-to-sign-up' })
+})
 
 router.get('/login', (req, res) => {
     res.render('login', { layout: false });

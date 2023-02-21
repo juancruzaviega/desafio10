@@ -7,6 +7,8 @@ import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import mongoose from 'mongoose';
 import path from 'path';
+import passport from 'passport';
+import initializeStrategies from './src/config/passport-config.js';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -22,6 +24,10 @@ app.use(session({
     saveUninitialized: false,
     cookie: { maxAge: 30000 }
 }))
+
+initializeStrategies();
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 const hbs = handlebars.create({
