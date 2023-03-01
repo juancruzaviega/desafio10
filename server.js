@@ -9,14 +9,18 @@ import mongoose from 'mongoose';
 import path from 'path';
 import passport from 'passport';
 import initializeStrategies from './src/config/passport-config.js';
+import dotenv from 'dotenv';
+import routerApi from './src/routes/api/randoms.js';
+dotenv.config()
 
 const app = express();
 const PORT = process.env.PORT || 8080;
-const connection = mongoose.connect('mongodb+srv://juanaviega:tyrone@tienda.g8gyjpy.mongodb.net/test')
+const MONGO_URL = process.env.MONGO_URL
+const connection = mongoose.connect(MONGO_URL)
 
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: "mongodb+srv://juanaviega:tyrone@tienda.g8gyjpy.mongodb.net/test",
+        mongoUrl: MONGO_URL,
         mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
     }),
     secret: 'tienda',
@@ -47,5 +51,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/', viewUser)
 app.use('/api/sessions', routerPost);
+app.use('/api/randoms', routerApi);
+
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
