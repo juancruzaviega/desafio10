@@ -1,22 +1,26 @@
+import dotenv from 'dotenv';
 import express from 'express';
-import viewUser from './src/routes/viewUsers.js';
-import __dirname from './utils.js';
 import handlebars from 'express-handlebars';
+import initializeStrategies from './src/config/passport-config.js';
+import mongoose from 'mongoose';
+import MongoStore from 'connect-mongo';
+import passport from 'passport';
+import path from 'path';
+import pkg from 'winston';
+import router from './src/routes/info.js'
+import routerApi from './src/routes/api/randoms.js';
 import routerPost from './src/routes/posts/usersPost.js';
 import session from 'express-session';
-import MongoStore from 'connect-mongo';
-import mongoose from 'mongoose';
-import path from 'path';
-import passport from 'passport';
-import initializeStrategies from './src/config/passport-config.js';
-import dotenv from 'dotenv';
-import routerApi from './src/routes/api/randoms.js';
-dotenv.config()
+import viewUser from './src/routes/viewUsers.js'
+import __dirname from './utils.js';
+import { addLoger, levels } from './src/middleware/loggers.js';
 
+dotenv.config()
+const { logger } = pkg;
 const app = express();
 const PORT = process.env.PORT || 8080;
-const MONGO_URL = process.env.MONGO_URL
-const connection = mongoose.connect(MONGO_URL)
+const MONGO_URL = process.env.MONGO_URL;
+const connection = mongoose.connect(MONGO_URL);
 
 app.use(session({
     store: MongoStore.create({
@@ -52,6 +56,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', viewUser)
 app.use('/api/sessions', routerPost);
 app.use('/api/randoms', routerApi);
+app.use('/info', router);
 
+app.use(addLoger);
+
+app.get('/pruebaLogger', (req, res) => {
+    levels;
+    res.send("ok");
+})
+
+app.get('/', (req, res) => {
+    res.send(`Petición atendida por ${process.pid}`)
+})
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
