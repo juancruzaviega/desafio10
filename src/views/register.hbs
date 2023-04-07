@@ -1,5 +1,5 @@
 
-<form id="sign-up">
+<form id="registerForm">
     <div class="inputbox">
         <input required="required" type="text" name="firstName">
         <span>Name</span>
@@ -16,6 +16,21 @@
         <i></i>
     </div>
     <div class="inputbox">
+        <input type="number" name="direccion">
+        <span>Dirección</span>
+        <i></i>
+    </div>
+    <div class="inputbox">
+        <input type="number" name="edad">
+        <span>Edad</span>
+        <i></i>
+    </div>
+    <div class="inputbox">
+        <input type="number" placeholder="Ej: +549234256789" pattern="[+][0-9]{8,20}" name="numero">
+        <span>Nº de teléfono</span>
+        <i></i>
+    </div>
+    <div class="inputbox">
         <input required="required" type="text" name="username">
         <span>Username</span>
         <i></i>
@@ -25,11 +40,19 @@
         <span>Password</span>
         <i></i>
     </div>
+    <div class="inputbox">
+        <input required="required" type="file" name="avatar">
+        <span>Avatar</span>
+        <i></i>
+    </div>
     <button type="submit">
-        Sign Up
+        <a href="/home">
+            Sign Up
+        </a>
     </button>
 </form>
 
 <p>¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a></p>
 
-<script type="text/javascript" src="./js/sign-up.js"></script>
+<script type="text/javascript" src="./js/register.js"></script>
+<link type="text/css" rel="stylesheet" href="./css/sign-up.css">

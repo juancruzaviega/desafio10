@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 
-const collection = 'users';
-
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
@@ -11,6 +9,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    direccion: {
+        type: Number
+    },
+    numero: {
+        type: Number,
+        unique: true
+    },
+    edad: {
+        type: Number
+    },
     email: {
         type: String,
         required: true,
@@ -18,15 +26,20 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
     },
     username: {
         type: String,
         required: true,
         unique: true
-    }
+    },
+    role: {
+        type: String,
+        default: 'user'
+    },
+    avatar: String
 });
+mongoose.models = {};
 
-const userDAO = mongoose.model(collection, userSchema);
 
-export default userDAO;
+export default mongoose.model('users', userSchema);

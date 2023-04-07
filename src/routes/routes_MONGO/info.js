@@ -13,4 +13,4 @@ router.get('/info', async (req, res) => {
         carpeta_del_proyecto: process.cwd(),
     })
 })
-export default router; 
+export default router;

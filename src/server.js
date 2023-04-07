@@ -1,22 +1,22 @@
-import config from './src/config/config.js';
+import config from './config/config.js';
 import dotenv from 'dotenv';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import handlebars from 'express-handlebars';
-import initializeStrategies from './src/config/passport-config.js';
+import initializeStrategies from './config/passport-config.js';
 import mongoose from 'mongoose';
 import nodemailer from 'nodemailer';
 import passport from 'passport';
 import path from 'path';
 import pkg from 'winston';
-import router from './src/routes/info.js'
-import routerPost from './src/routes/posts/usersPost.js';
+import router from './routes/info.js'
+import routerPost from './routes/posts/usersPost.js';
 import routes from './src/routes/routes.js';
 import routesCarrito from './src/routes/carritoroute.js';
 import session from 'express-session';
-import viewUser from './src/routes/viewUsers.js'
+import viewUser from './routes/viewUsers.js'
 import __dirname from './utils.js';
-import { addLoger, levels } from './src/middleware/loggers.js';
+import { addLoger, levels } from './middleware/loggers.js';
 
 dotenv.config()
 const { logger } = pkg;
