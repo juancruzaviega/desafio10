@@ -1,16 +1,16 @@
 import cartsSchema from '../../models/cartsSchema.js';
 import productsSchema from '../../models/productsSchema.js';
-import { getProductById } from './products.js';
+import { cartsService } from '../dao/index.js';
+import { getProductById } from './productsDAO.js';
 
 
-//get all the carts
-export const getCarts = async (req, res) => {
-    const carrito = await cartsSchema.find().lean()
-    res.render('cart', { docs: carrito })
+
+const getCarts = async (req, res) => {
+    const carrito = await cartsService.getCarts();
+    res.send({ status: "success", paylorad: productos })
 }
 
-//add product in cart
-export const addToCart = async (req, res) => {
+const addToCart = async (req, res) => {
     const { title, price } = req.body;
     const estaEnProducts = await productsSchema.findOne({ title });
     const noEstaVacio = title !== "" && price !== "";
@@ -46,24 +46,22 @@ export const addToCart = async (req, res) => {
 }
 
 
-//get a cart by id 
-export const getCartById = async (req, res) => {
+const getCartById = async (req, res) => {
     const id = req.params.id;
     const getCart = await cartsSchema.findOne({ _id: id });
     res.render({ getCart })
 
 }
 
-//insert a new cart
-export const insertCart = (req, res) => {
+const insertCart = (req, res) => {
     const data = req.body;
     cartsSchema.create(data, (err, cart) => {
         res.send({ cart: cart })
     })
 }
 
-//update an old cart by id
-export const updateCartById = (req, res) => {
+
+const updateCartById = (req, res) => {
     const id = req.params.id;
     const body = req.body;
     cartsSchema.updateOne(
@@ -75,8 +73,8 @@ export const updateCartById = (req, res) => {
     )
 }
 
-//delete a cart by id 
-export const deleteCartById = (req, res) => {
+
+const deleteCartById = (req, res) => {
     const id = req.params.id;
     cartsSchema.deleteOne(
         { _id: id },
@@ -84,4 +82,13 @@ export const deleteCartById = (req, res) => {
             res.send({ cart: cart })
         }
     )
+}
+
+export default {
+    getCarts,
+    addToCart,
+    getCartById,
+    insertCart,
+    deleteCartById,
+    updateCartById
 }

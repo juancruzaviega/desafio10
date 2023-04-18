@@ -5,6 +5,7 @@ import uploader from '../services/upload.js';
 import passport from 'passport';
 import config from '../config/config.js';
 import jwt from 'jsonwebtoken';
+import userDTO from '../dao/DTO/userDTO.js';
 
 const register = async (req, res) => {
     try {

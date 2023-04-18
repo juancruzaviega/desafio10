@@ -1,14 +1,7 @@
-let key = 1;
-let persistencia;
+import cartsDAO from "./carritoDAO";
+import productsDAO from "./productsDAO";
+import UserDAO from "./userDAO";
 
-switch (key) {
-    case 1:
-        persistencia = 'mongoDB'
-        break;
-    case 2:
-        persistencia = 'filesystem'
-        break;
-    default:
-        persistencia = 'mongoDB'
-        break;
-}
+export const userService = new UserDAO();
+export const productsService = new productsDAO();
+export const cartsService = new cartsDAO();
